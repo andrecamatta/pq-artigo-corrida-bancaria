@@ -1,17 +1,25 @@
+# Diretório de autoria do artigo (HTML, Markdown, figuras geradas)
+# fica fora do repositório de código
+artigos/
+
 # Material de pesquisa privado / não-distribuível
 dubvig.pdf
 dubvig_extracted/
 dubvig_marker/
 dubvig_marker_ocr/
-artigos/research_brief_corrida_bancaria.md
 
-# Artefatos temporários dos geradores
-artigos/_payload_*.json
-artigos/_response_*.json
-artigos/_frame_*.png
-artigos/_t*.png
-artigos/_final.png
-artigos/_85pct.png
+# Saídas dos geradores (regeneráveis pelos próprios scripts)
+hawkes_dominoes.gif
+diagrama_nash_pareto_corrida.png
+tabela_corridas_sem_fila.png
+*_header.png
+*_header.meta.json
+_payload_*.json
+_response_*.json
+_frame_*.png
+_t*.png
+_final.png
+_85pct.png
 
 # Python
 __pycache__/
@@ -19,6 +27,12 @@ __pycache__/
 *.pyo
 .venv/
 venv/
+
+# Julia
+Manifest.toml
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
 
 # Node
 node_modules/

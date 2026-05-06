@@ -1,19 +1,19 @@
-# Corrida bancária sem fila — código de apoio
+# pq-artigo-corrida-bancaria
 
 Material de apoio do artigo **"Corrida bancária sem fila: Diamond-Dybvig, liquidez e a regulação que ainda falta"** publicado em [Pílulas de Quant](https://pilulasdequant.com.br).
 
-A peça central é uma simulação do **processo de Hawkes univariado** ilustrando a autoexcitação de saques numa corrida digital, animada como uma fileira de dominós com propagação física: dominós próximos se tocam e empurram o vizinho; quando os eventos se afastam no tempo, os dominós ficam longe entre si e a corrente quebra naturalmente.
+A peça central é uma simulação do **processo de Hawkes univariado** ilustrando a autoexcitação de saques numa corrida digital, animada como uma fileira de dominós com propagação física: dominós espacialmente próximos se tocam e empurram o vizinho; quando os eventos se afastam no tempo, os dominós ficam longe entre si e a corrente quebra naturalmente.
 
 ## Como reproduzir
 
-Pré-requisitos: Python 3.10+ e as dependências em `requirements.txt`.
+A simulação principal está em Julia. Pré-requisitos: Julia 1.10+ e os pacotes em `Project.toml`.
 
 ```bash
-pip install -r requirements.txt
-python artigos/_gen_hawkes_dominoes.py
+julia --project=. -e 'using Pkg; Pkg.instantiate()'
+julia --project=. _gen_hawkes_dominoes.jl
 ```
 
-Saída: `artigos/hawkes_dominoes.gif` (~1,1 MB, 12 s de animação a 10 fps).
+Saída: `hawkes_dominoes.gif` (~1 MB, 12 s de animação a 10 fps).
 
 A simulação tem seed fixa (`SEED = 20260504`), então o resultado é determinístico. Os parâmetros do cenário pedagógico estão no topo do script:
 
@@ -24,23 +24,13 @@ A simulação tem seed fixa (`SEED = 20260504`), então o resultado é determin�
 
 A transição de regime em t = 8 h injeta um "evento de notícia" (saque grande) que move o sistema para o regime instável. O caixa cruza o piso operacional Bₜ em τ ≈ 9,7 h e zera em t ≈ 10,3 h.
 
-## Estrutura
+## Geradores auxiliares
 
-```
-artigos/
-├── _gen_hawkes_dominoes.py    Simulação Hawkes + animação dominó (peça central)
-├── _gen_diagrama_nash.py      Diagrama dos dois equilíbrios de Nash (Diamond-Dybvig)
-├── _gen_tabela_corridas.py    Tabela das quatro corridas históricas sem fila
-├── _gen_header.js             Geração do header via OpenRouter (requer API key local)
-├── corrida-bancaria-diamond-dybvig-regulacao.html   Artigo completo
-├── corrida-bancaria-diamond-dybvig-regulacao_linkedin.md   Chamada para LinkedIn
-├── hawkes_dominoes.gif
-├── diagrama_nash_pareto_corrida.png
-├── tabela_corridas_sem_fila.png
-└── corrida-bancaria-diamond-dybvig-regulacao_header.png
-```
+Três scripts adicionais geram figuras pequenas usadas no artigo. Permanecem em Python por decisão pragmática — são wrappers que orquestram Selenium + Chrome headless para renderizar HTML estilizado em PNG, ou chamada de API REST, e não envolvem cálculo numérico que justificasse Julia. Pré-requisitos em `requirements.txt`.
 
-Os geradores `_gen_diagrama_nash.py` e `_gen_tabela_corridas.py` usam Selenium + Chrome headless para renderizar HTML estilizado em PNG.
+- `_gen_diagrama_nash.py` — diagrama dos dois equilíbrios de Nash do modelo Diamond-Dybvig.
+- `_gen_tabela_corridas.py` — tabela comparativa das quatro corridas históricas sem fila.
+- `_gen_header.js` — geração do header via OpenRouter (requer chave de API local; lê o HTML do artigo de um caminho que o autor configura localmente).
 
 ## Licença
 

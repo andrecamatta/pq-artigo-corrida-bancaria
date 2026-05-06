@@ -2,6 +2,14 @@
 # fica fora do repositório de código
 artigos/
 
+# Geradores auxiliares de figuras menores (mantidos localmente, não
+# pertencem ao repositório público — apenas a simulação Hawkes em Julia
+# entra no repositório)
+_gen_diagrama_nash.py
+_gen_tabela_corridas.py
+_gen_header.js
+requirements.txt
+
 # Material de pesquisa privado / não-distribuível
 dubvig.pdf
 dubvig_extracted/

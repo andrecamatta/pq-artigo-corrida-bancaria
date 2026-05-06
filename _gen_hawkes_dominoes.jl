@@ -262,15 +262,19 @@ function main()
                label="Bₜ (piso operacional)", legend=:topright)
         if tau !== nothing && t_now >= tau
             vline!(p3, [tau]; color=COR_GRAFITE, ls=:dot, lw=1.5, label="")
-            annotate!(p3, tau + 0.15, B_PISO + 6,
-                      text("τ ≈ $(round(tau, digits=1)) h", :left, 10,
-                           COR_GRAFITE, :bold))
+            tau_anchor = tau > 0.75 * t_fim ? :right : :left
+            tau_offset = tau_anchor === :right ? -0.20 : 0.15
+            annotate!(p3, tau + tau_offset, B_PISO + 6,
+                      text("τ ≈ $(round(tau, digits=1)) h", tau_anchor, 10,
+                           COR_GRAFITE))
         end
         if t_quebra !== nothing && t_now >= t_quebra
             vline!(p3, [t_quebra]; color=COR_VERMELHO, lw=1.8, label="")
-            annotate!(p3, t_quebra + 0.15, cx_ymax * 0.78,
+            quebra_anchor = t_quebra > 0.75 * t_fim ? :right : :left
+            quebra_offset = quebra_anchor === :right ? -0.25 : 0.15
+            annotate!(p3, t_quebra + quebra_offset, cx_ymax * 0.78,
                       text("insolvência\nt = $(round(t_quebra, digits=1)) h",
-                           :left, 10, COR_VERMELHO, :bold))
+                           quebra_anchor, 10, COR_VERMELHO))
         end
 
         plot(p1, p2, p3;

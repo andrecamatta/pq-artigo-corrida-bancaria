@@ -1,0 +1,31 @@
+# Material de pesquisa privado / não-distribuível
+dubvig.pdf
+dubvig_extracted/
+dubvig_marker/
+dubvig_marker_ocr/
+artigos/research_brief_corrida_bancaria.md
+
+# Artefatos temporários dos geradores
+artigos/_payload_*.json
+artigos/_response_*.json
+artigos/_frame_*.png
+artigos/_t*.png
+artigos/_final.png
+artigos/_85pct.png
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Node
+node_modules/
+package-lock.json
+
+# Editores / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
